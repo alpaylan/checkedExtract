@@ -1,0 +1,35 @@
+(library
+ (name checkedExtract)                   ; This is the name you will use in
+                                    ; Coq's `Declare ML Module`, and
+                                    ; the name of the main OCaml
+                                    ; module of your plugin.
+
+ (public_name checked-extract.plugin) ; This makes the plugin
+                                    ; installable; recommended, must
+                                    ; match opam package name.
+
+ (synopsis "Checked Extract")         ; Synopsis, used in META generation.
+
+ (flags :standard -rectypes -w -27) ; Coq requires the `-rectypes`
+                                    ; flag; CoqPP generated code
+                                    ; requires to disable warning 27
+                                    ; often.
+
+ ; (foreign_stubs                     ; we link our plugin with a C
+ ;  (language c)                      ; library! Optional, of course.
+ ;  (names ce_get))
+
+ (libraries                         ; OCaml Libraries we want to link
+                                    ; with, your choice here.
+
+   coq-core.vernac                  ; Needed for vernac extend.
+   coq-core.plugins.ltac            ; Needed for tactic extend.
+   coq-core.plugins.extraction      ; Needed for extraction.
+   merlin-lib.kernel
+   merlin-lib.ocaml_typing
+   merlin-lib.query_commands
+ )
+)
+
+; This will let Dune know about Coq's .mlg grammar files.
+(coq.pp (modules g_checked_extract))

@@ -1,0 +1,4 @@
+(test
+ (name test)
+ (flags :standard -rectypes -w -27)
+ (libraries checkedExtract))
